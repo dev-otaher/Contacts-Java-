@@ -9,8 +9,8 @@ abstract public class Contact {
     protected LocalDateTime lastEditedOn;
 
     protected Contact() {
-        createdOn = LocalDateTime.now();
-        lastEditedOn = LocalDateTime.of(createdOn.toLocalDate(), createdOn.toLocalTime());
+        createdOn = LocalDateTime.now().withSecond(0).withNano(0);
+        lastEditedOn = LocalDateTime.of(createdOn.toLocalDate(), createdOn.toLocalTime()).withSecond(0).withNano(0);
     }
 
     protected void setName(String name) {
@@ -29,8 +29,18 @@ abstract public class Contact {
     }
 
     protected void updateLastEditedOn() {
-        lastEditedOn = LocalDateTime.now();
+        lastEditedOn = LocalDateTime.now().withSecond(0).withNano(0);
     }
 
     abstract protected String getFullName();
+
+    abstract void updateField(String fieldName, Object newValue);
+
+    abstract Object getFieldValue(String fieldName);
+
+    abstract String[] getUpdatableFields();
+
+    abstract String getDetails();
+
+    abstract public String toString();
 }
